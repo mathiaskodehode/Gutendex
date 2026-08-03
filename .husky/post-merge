@@ -1,0 +1,8 @@
+echo "POST MERGE DETECTED"
+
+# Only run if dependencies actually changed
+git diff HEAD@{1} --stat | grep -q 'package-lock.json'
+if [ $? -eq 0 ]; then
+  echo "Dependencies changed. Running safe auto-install..."
+  npm ci --ignore-scripts
+fi
