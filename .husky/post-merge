@@ -1,4 +1,4 @@
-echo "POST MERGE DETECTED"
+echo "💀💀💀💀💀 POST MERGE DETECTED"
 
 # Only run if dependencies actually changed
 git diff HEAD@{1} --stat | grep -q 'package-lock.json'
