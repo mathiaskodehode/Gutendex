@@ -13,6 +13,7 @@ interface BooksContextType {
     data: BooksResponse | null;
     loading: boolean;
     error: string | null;
+    currentCategory: string | null;
     fetchBooksByCategory: (category: string) => Promise<void>;
 }
 
@@ -22,6 +23,7 @@ export function BooksProvider({ children }: { children: ReactNode }) {
     const [data, setData] = useState<BooksResponse | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [currentCategory, setCurrentCategory] = useState<string | null>(null);
 
     async function fetchBooksByCategory(category: string) {
         setLoading(true);
@@ -44,6 +46,7 @@ export function BooksProvider({ children }: { children: ReactNode }) {
             setError(e instanceof Error ? e.message : "Unknown error");
         } finally {
             setLoading(false);
+            setCurrentCategory(category);
         }
     }
 
@@ -53,6 +56,7 @@ export function BooksProvider({ children }: { children: ReactNode }) {
                 data,
                 loading,
                 error,
+                currentCategory,
                 fetchBooksByCategory,
             }}
         >

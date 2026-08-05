@@ -1,7 +1,7 @@
 import { useBooks } from "../context/BooksContext";
 
 export default function Home() {
-    const { data, loading, error } = useBooks();
+    const { data, loading, error, currentCategory } = useBooks();
 
     if (loading) {
         // TODO: add spinner
@@ -15,10 +15,13 @@ export default function Home() {
     }
 
     return (
-        <ul>
-            {data.results.map(book => (
-                <li key={book.id}>{book.title}</li>
-            ))}
-        </ul>
+        <>
+            <h2>{currentCategory}</h2>
+            <ul>
+                {data.results.map(book => (
+                    <li key={book.id}>{book.title}</li>
+                ))}
+            </ul>
+        </>
     );
 }
