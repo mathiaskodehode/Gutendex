@@ -1,20 +1,5 @@
 import { useBooks } from "../context/BooksContext";
-
-const categories: string[] = [
-    "Fiction",
-    "Mystery",
-    "Thriller",
-    "Romance",
-    "Fantasy",
-    "Morality",
-    "Society",
-    "Power",
-    "Justice",
-    "Adventure",
-    "Tragedy",
-    "War",
-    "Philosophy",
-];
+import categories from "../variables/bookCategories.ts";
 
 export default function CategoryMenu() {
     const { fetchBooksByCategory } = useBooks();
