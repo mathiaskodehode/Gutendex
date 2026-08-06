@@ -28,16 +28,12 @@ export function BooksProvider({ children }: { children: ReactNode }) {
     async function fetchBooksByCategory(category: string) {
         setLoading(true);
         setError(null);
-
         try {
             const url = `https://gutendex.com/books?topic=${category}`;
             console.log("Fetching:", url);
             const res = await fetch(url);
             console.log("Status:", res.status);
-
-            if (!res.ok) {
-                throw new Error(`Request failed: ${res.status}`);
-            }
+            if (!res.ok) throw new Error(`Request failed: ${res.status}`);
 
             const json = await res.json();
             console.log("Response JSON:", json);
@@ -67,10 +63,6 @@ export function BooksProvider({ children }: { children: ReactNode }) {
 
 export function useBooks() {
     const context = useContext(BooksContext);
-
-    if (!context) {
-        throw new Error("useBooks must be used inside BooksProvider");
-    }
-
+    if (!context) throw new Error("useBooks must be used inside BooksProvider");
     return context;
 }
