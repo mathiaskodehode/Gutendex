@@ -5,6 +5,15 @@ export default function Pagination() {
 
     if (!data) return null;
 
+    const getPage = () => {
+        if (!data.previous) return 1;
+
+        const previousUrl = new URL(data.previous);
+        const previousPage = Number(previousUrl.searchParams.get("page") ?? "1");
+
+        return previousPage + 1;
+    };
+
     return (
         <div>
             <button
@@ -13,6 +22,7 @@ export default function Pagination() {
             >
                 Previous
             </button>
+            Page {getPage()}
             <button
                 disabled={!data.next}
                 onClick={() => data.next && loadPage(data.next)}
