@@ -3,13 +3,16 @@ import { StrictMode } from "react";
 import { RouterProvider } from "react-router/dom";
 import { router } from "./router/index.tsx";
 import { BooksProvider } from "./context/BooksContext";
+import { FavoritesProvider } from "./context/FavoritesContext.tsx";
 
 const root = document.getElementById("root")!;
 
 createRoot(root).render(
     <StrictMode>
-        <BooksProvider>
-            <RouterProvider router={router} />
-        </BooksProvider>
+        <FavoritesProvider>
+            <BooksProvider>
+                <RouterProvider router={router} />
+            </BooksProvider>
+        </FavoritesProvider>
     </StrictMode>,
 );

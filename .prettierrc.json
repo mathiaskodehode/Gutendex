@@ -3,5 +3,6 @@
     "printWidth": 128,
     "arrowParens": "avoid",
     "proseWrap": "never",
-    "singleAttributePerLine": true
+    "singleAttributePerLine": true,
+    "bracketSpacing": true
 }
