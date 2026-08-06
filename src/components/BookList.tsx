@@ -18,7 +18,7 @@ export default function BookList() {
         <>
             <h2>{currentCategory}</h2>
             <ul>
-                {data.results.map(book => (
+                {data?.results.map(book => (
                     <li key={book.id}>{book.title}</li>
                 ))}
             </ul>

@@ -1,11 +1,11 @@
 import BookList from "../components/BookList.tsx";
-import SearchBar from "../components/SearchBar.tsx";
+import Pagination from "../components/Pagination.tsx";
 
 export default function Home() {
     return (
         <>
-            <SearchBar />
             <BookList />
+            <Pagination />
         </>
     );
 }

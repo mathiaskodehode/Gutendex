@@ -6,6 +6,9 @@ interface Book {
 }
 
 interface BooksResponse {
+    count: number;
+    next: string | null;
+    previous: string | null;
     results: Book[];
 }
 
@@ -15,25 +18,26 @@ interface BooksContextType {
     error: string | null;
     currentCategory: string | null;
     fetchBooksByCategory: (category: string) => Promise<void>;
+    searchBooks: (query: string) => Promise<void>;
+    loadPage: (url: string) => Promise<void>;
 }
 
 const BooksContext = createContext<BooksContextType | undefined>(undefined);
 
 export function BooksProvider({ children }: { children: ReactNode }) {
     const [data, setData] = useState<BooksResponse | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [currentCategory, setCurrentCategory] = useState<string | null>(null);
 
-    async function fetchBooksByCategory(category: string) {
+    async function fetchBooks(url: string) {
         setLoading(true);
         setError(null);
         try {
-            const url = `https://gutendex.com/books?topic=${category}`;
             console.log("Fetching:", url);
             const res = await fetch(url);
             console.log("Status:", res.status);
-            if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+            if (!res.ok) throw new Error("Failed to fetch books");
 
             const json = await res.json();
             console.log("Response JSON:", json);
@@ -42,8 +46,17 @@ export function BooksProvider({ children }: { children: ReactNode }) {
             setError(e instanceof Error ? e.message : "Unknown error");
         } finally {
             setLoading(false);
-            setCurrentCategory(category);
         }
+    }
+    async function fetchBooksByCategory(category: string) {
+        setCurrentCategory(category);
+        await fetchBooks(`https://gutendex.com/books?topic=${category}`);
+    }
+    async function searchBooks(query: string) {
+        await fetchBooks(`https://gutendex.com/books?search=${encodeURIComponent(query)}`);
+    }
+    async function loadPage(url: string) {
+        await fetchBooks(url);
     }
 
     return (
@@ -54,6 +67,8 @@ export function BooksProvider({ children }: { children: ReactNode }) {
                 error,
                 currentCategory,
                 fetchBooksByCategory,
+                searchBooks,
+                loadPage,
             }}
         >
             {children}
