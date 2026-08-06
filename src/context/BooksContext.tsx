@@ -1,26 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
-
-interface Book {
-    id: number;
-    title: string;
-}
-
-interface BooksResponse {
-    count: number;
-    next: string | null;
-    previous: string | null;
-    results: Book[];
-}
-
-interface BooksContextType {
-    data: BooksResponse | null;
-    loading: boolean;
-    error: string | null;
-    currentCategory: string | null;
-    fetchBooksByCategory: (category: string) => Promise<void>;
-    searchBooks: (query: string) => Promise<void>;
-    loadPage: (url: string) => Promise<void>;
-}
+import type BooksResponse from "../types/booksResponse.ts";
+import type BooksContextType from "../types/booksContextType.ts";
 
 const BooksContext = createContext<BooksContextType | undefined>(undefined);
 
