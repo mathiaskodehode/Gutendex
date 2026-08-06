@@ -1,8 +1,8 @@
-echo "💀💀💀💀💀 POST MERGE DETECTED"
+#!/usr/bin/env sh
 
-# Only run if dependencies actually changed
-git diff HEAD@{1} --stat | grep -q 'package-lock.json'
-if [ $? -eq 0 ]; then
-  echo "Dependencies changed. Running safe auto-install..."
-  npm ci --ignore-scripts
-fi
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+
+echo "RUNNING POST MERGE"
+
+npm --prefix "$REPO_ROOT" ci --ignore-scripts
+npm --prefix "$REPO_ROOT/frontend" ci --ignore-scripts
