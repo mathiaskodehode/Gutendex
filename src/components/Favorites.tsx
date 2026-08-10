@@ -11,8 +11,10 @@ export default function Favorites() {
                 <ul>
                     {favorites.map(book => (
                         <>
-                            <li key={book.id}>{book.title}</li>
-                            <button onClick={() => removeFavorite(book.id)}>Remove</button>
+                            <li key={book.id}>
+                                {book.title}
+                                <button onClick={() => removeFavorite(book.id)}>Remove</button>
+                            </li>
                         </>
                     ))}
                 </ul>
