@@ -5,8 +5,6 @@ export default function Favorites() {
 
     return (
         <>
-            <h2>Favorites</h2>
-
             {favorites.length === 0 ? (
                 <p>No favorite books yet.</p>
             ) : (
