@@ -1,5 +1,6 @@
 import { useBooks } from "../context/BooksContext.tsx";
 import { useFavorites } from "../context/FavoritesContext.tsx";
+import Pagination from "./Pagination.tsx";
 
 export default function BookList() {
     const { data, loading, error, currentCategory } = useBooks();
@@ -31,6 +32,7 @@ export default function BookList() {
                     </li>
                 ))}
             </ul>
+            <Pagination />
         </>
     );
 }

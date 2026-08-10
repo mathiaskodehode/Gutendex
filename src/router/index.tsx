@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/Home";
+import CategoryPage from "../pages/CategoryPage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -8,5 +9,12 @@ export const router = createBrowserRouter([
         element: <MainLayout />,
         children: [{ index: true, element: <Home /> }],
     },
-    { path: "*", element: <p>404 - PAGE NOT FOUND</p> },
+    {
+        path: "/category/:category",
+        element: <CategoryPage />,
+    },
+    {
+        path: "*",
+        element: <p>404 - PAGE NOT FOUND</p>,
+    },
 ]);
