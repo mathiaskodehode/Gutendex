@@ -5,9 +5,12 @@ export default function CategoryMenu() {
     return (
         <>
             {categories.map(category => (
-                <>
-                    <Link to={`/category/${category}`}>{category}</Link>
-                </>
+                <Link
+                    to={`/category/${category}`}
+                    key={category}
+                >
+                    {category}
+                </Link>
             ))}
         </>
     );

@@ -1,7 +1,8 @@
 import { useFavorites } from "../context/FavoritesContext";
+import BookEntry from "./BookEntry.tsx";
 
 export default function Favorites() {
-    const { favorites, removeFavorite } = useFavorites();
+    const { favorites } = useFavorites();
 
     return (
         <>
@@ -11,10 +12,7 @@ export default function Favorites() {
                 <ul>
                     {favorites.map(book => (
                         <>
-                            <li key={book.id}>
-                                {book.title}
-                                <button onClick={() => removeFavorite(book.id)}>Remove</button>
-                            </li>
+                            <li key={book.id}>{BookEntry(book)}</li>
                         </>
                     ))}
                 </ul>

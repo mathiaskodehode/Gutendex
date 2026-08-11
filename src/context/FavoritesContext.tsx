@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type Book from "../types/book.ts";
-import type FavoritesContextType from "../types/FavoritesContextType.ts";
+import type FavoritesContextType from "../types/favoritesContextType.ts";
 
 const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
 
