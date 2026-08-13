@@ -1,20 +1,21 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { useBooks } from "../context/BooksContext.tsx";
+import FavoriteButton from "../components/FavoriteButton.tsx";
 
 export default function BookDetailsPage() {
-    const { bookid } = useParams();
-    const bookidNum = Number(bookid);
+    const { bookid: bookId } = useParams();
+    const bookIdNum = Number(bookId);
     const { data, loading, error, fetchBookById } = useBooks();
-    const bookDetails = data?.results.find(book => book.id === bookidNum);
+    const book = data?.results.find(book => book.id === bookIdNum);
 
     useEffect(() => {
-        if (!Number.isNaN(bookidNum) && !bookDetails) {
-            fetchBookById(bookidNum);
+        if (!Number.isNaN(bookIdNum) && !book) {
+            fetchBookById(bookIdNum);
         }
-    }, [bookidNum]);
+    }, [bookIdNum]);
 
-    if (!bookid || Number.isNaN(bookidNum)) {
+    if (!bookId || Number.isNaN(bookIdNum)) {
         return <p>Invalid book ID.</p>;
     }
     if (loading) {
@@ -23,19 +24,16 @@ export default function BookDetailsPage() {
     if (error) {
         return <p>Error: {error}</p>;
     }
-    if (!bookDetails) {
+    if (!book) {
         return <p>Book not found.</p>;
     }
 
     return (
         <div>
-            <h2>{bookDetails.title}</h2>
+            <h2>{book.title}</h2>
+            <FavoriteButton {...book} />
             <h3>Authors</h3>
-            {bookDetails.authors.length > 0 ? (
-                bookDetails.authors.map(author => <p key={author.name}>{author.name}</p>)
-            ) : (
-                <p>Unknown</p>
-            )}
+            {book.authors.length > 0 ? book.authors.map(author => <p key={author.name}>{author.name}</p>) : <p>Unknown</p>}
         </div>
     );
 }
