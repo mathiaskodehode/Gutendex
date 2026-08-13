@@ -1,12 +1,14 @@
 import type BooksResponse from "./booksResponse.ts";
+import type Book from "./book.ts";
 
 export default interface BooksContextType {
     data: BooksResponse | null;
     loading: boolean;
     error: string | null;
     currentCategory: string | null;
+    currentSearch: string | null;
     fetchBooksByCategory: (category: string) => Promise<void>;
-    fetchBookById: (id: number) => Promise<void>;
+    getBookById: (id: number) => Promise<Book | undefined>;
     searchBooks: (query: string) => Promise<void>;
     loadPage: (url: string) => Promise<void>;
 }

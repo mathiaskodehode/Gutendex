@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import categories from "../variables/bookCategories.ts";
+import categories from "../constants/bookCategories.ts";
 
 export default function CategoryMenu() {
     return (

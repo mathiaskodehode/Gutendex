@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 import type BooksResponse from "../types/booksResponse.ts";
 import type BooksContextType from "../types/booksContextType.ts";
+import { fetchBooks } from "../api/gutendex.ts";
 
 const BooksContext = createContext<BooksContextType | undefined>(undefined);
 
@@ -9,19 +10,16 @@ export function BooksProvider({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [currentCategory, setCurrentCategory] = useState<string | null>(null);
+    const [currentSearch, setCurrentSearch] = useState<string | null>(null);
 
-    async function fetchBooks(url: string) {
+    async function executeBookFetch(url: string) {
         setLoading(true);
         setError(null);
-        try {
-            console.log("Fetching:", url);
-            const res = await fetch(url);
-            console.log("Status:", res.status);
-            if (!res.ok) throw new Error("Failed to fetch books");
 
-            const json = await res.json();
-            console.log("Response JSON:", json);
-            setData(json);
+        try {
+            const data = await fetchBooks(url);
+            setData(data);
+            return data;
         } catch (e) {
             setError(e instanceof Error ? e.message : "Unknown error");
         } finally {
@@ -30,16 +28,21 @@ export function BooksProvider({ children }: { children: ReactNode }) {
     }
     async function fetchBooksByCategory(category: string) {
         setCurrentCategory(category);
-        await fetchBooks(`https://gutendex.com/books?topic=${category}`);
+        setCurrentSearch(null);
+
+        await executeBookFetch(`https://gutendex.com/books?topic=${category}`);
     }
-    async function fetchBookById(id: number) {
-        await fetchBooks(`https://gutendex.com/books?ids=${id}`);
+    async function getBookById(id: number) {
+        return (await fetchBooks(`https://gutendex.com/books?ids=${id}`)).results[0];
     }
     async function searchBooks(query: string) {
-        await fetchBooks(`https://gutendex.com/books?search=${encodeURIComponent(query)}`);
+        setCurrentCategory(null);
+        setCurrentSearch(query);
+
+        await executeBookFetch(`https://gutendex.com/books?search=${encodeURIComponent(query)}`);
     }
     async function loadPage(url: string) {
-        await fetchBooks(url);
+        await executeBookFetch(url);
     }
 
     return (
@@ -49,8 +52,9 @@ export function BooksProvider({ children }: { children: ReactNode }) {
                 loading,
                 error,
                 currentCategory,
+                currentSearch,
                 fetchBooksByCategory,
-                fetchBookById,
+                getBookById: getBookById,
                 searchBooks,
                 loadPage,
             }}

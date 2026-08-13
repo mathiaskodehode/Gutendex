@@ -6,14 +6,24 @@ export default interface Book {
         birth_year: number | null;
         death_year: number | null;
     }[];
+    summaries: string[];
+    editors: {
+        name: string;
+        birth_year: number | null;
+        death_year: number | null;
+    }[];
+    translators: {
+        name: string;
+        birth_year: number | null;
+        death_year: number | null;
+    }[];
     subjects: string[];
+    bookshelves: string[];
     languages: string[];
-    download_count: number;
+    copyright: boolean;
+    media_type: string;
     formats: {
         [key: string]: string;
     };
-    bookshelves: string[];
-    editors: string[];
-    summaries: string[];
-    translators: string[];
+    download_count: number;
 }
