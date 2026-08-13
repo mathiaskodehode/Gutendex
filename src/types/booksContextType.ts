@@ -6,6 +6,7 @@ export default interface BooksContextType {
     error: string | null;
     currentCategory: string | null;
     fetchBooksByCategory: (category: string) => Promise<void>;
+    fetchBookById: (id: number) => Promise<void>;
     searchBooks: (query: string) => Promise<void>;
     loadPage: (url: string) => Promise<void>;
 }

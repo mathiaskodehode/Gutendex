@@ -12,4 +12,8 @@ export default interface Book {
     formats: {
         [key: string]: string;
     };
+    bookshelves: string[];
+    editors: string[];
+    summaries: string[];
+    translators: string[];
 }

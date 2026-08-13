@@ -32,6 +32,9 @@ export function BooksProvider({ children }: { children: ReactNode }) {
         setCurrentCategory(category);
         await fetchBooks(`https://gutendex.com/books?topic=${category}`);
     }
+    async function fetchBookById(id: number) {
+        await fetchBooks(`https://gutendex.com/books?ids=${id}`);
+    }
     async function searchBooks(query: string) {
         await fetchBooks(`https://gutendex.com/books?search=${encodeURIComponent(query)}`);
     }
@@ -47,6 +50,7 @@ export function BooksProvider({ children }: { children: ReactNode }) {
                 error,
                 currentCategory,
                 fetchBooksByCategory,
+                fetchBookById,
                 searchBooks,
                 loadPage,
             }}
