@@ -7,11 +7,13 @@ export default function Favorites() {
     return (
         <>
             {favorites.length === 0 ? (
-                <p>No favorite books yet.</p>
+                <p>You have no favorite books yet.</p>
             ) : (
                 <ul>
                     {favorites.map(book => (
-                        <li key={book.id}>{BookEntry(book)}</li>
+                        <li key={book.id}>
+                            <BookEntry {...book} />
+                        </li>
                     ))}
                 </ul>
             )}

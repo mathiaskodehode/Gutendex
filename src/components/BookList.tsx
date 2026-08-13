@@ -20,8 +20,10 @@ export default function BookList() {
         <>
             <h2>{currentCategory}</h2>
             <ul>
-                {data?.results.map(book => (
-                    <li key={book.id}>{BookEntry(book)}</li>
+                {data.results.map(book => (
+                    <li key={book.id}>
+                        <BookEntry {...book} />
+                    </li>
                 ))}
             </ul>
             <Pagination />
