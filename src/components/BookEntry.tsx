@@ -4,6 +4,7 @@ import type Book from "../types/book.ts";
 
 export default function BookEntry(book: Book) {
     const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+
     return (
         <>
             <Link to={`/book/${book.id}`}>{book.title}</Link>

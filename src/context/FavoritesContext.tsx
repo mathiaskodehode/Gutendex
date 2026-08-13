@@ -16,10 +16,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
     function addFavorite(book: Book) {
         setFavorites(prev => {
-            if (prev.some(fav => fav.id === book.id)) {
-                return prev;
-            }
-
+            if (prev.some(fav => fav.id === book.id)) return prev;
             return [...prev, book];
         });
     }
@@ -46,9 +43,6 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
 export function useFavorites() {
     const context = useContext(FavoritesContext);
-
-    if (!context) {
-        throw new Error("useFavorites must be used within a FavoritesProvider");
-    }
+    if (!context) throw new Error("useFavorites must be used within a FavoritesProvider");
     return context;
 }

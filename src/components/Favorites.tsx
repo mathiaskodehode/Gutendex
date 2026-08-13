@@ -11,9 +11,7 @@ export default function Favorites() {
             ) : (
                 <ul>
                     {favorites.map(book => (
-                        <>
-                            <li key={book.id}>{BookEntry(book)}</li>
-                        </>
+                        <li key={book.id}>{BookEntry(book)}</li>
                     ))}
                 </ul>
             )}
