@@ -20,6 +20,7 @@ export function BooksProvider({ children }: { children: ReactNode }) {
             return data;
         } catch (e) {
             setError(e instanceof Error ? e.message : "Unknown error");
+            throw e;
         } finally {
             setLoading(false);
         }
