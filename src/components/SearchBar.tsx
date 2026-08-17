@@ -8,8 +8,7 @@ export default function SearchBar() {
     function handleSubmit(e: React.SubmitEvent) {
         e.preventDefault();
 
-        setQuery(query.trim());
-        navigate(`/search/${query}`);
+        navigate(`/search/${encodeURIComponent(query.trim())}`);
     }
 
     return (
