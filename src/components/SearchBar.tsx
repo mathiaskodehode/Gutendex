@@ -7,7 +7,7 @@ export default function SearchBar() {
 
     function handleSubmit(e: React.SubmitEvent) {
         e.preventDefault();
-
+        // TODO: handle empty search
         navigate(`/search/${encodeURIComponent(query.trim())}`);
     }
 

@@ -10,13 +10,13 @@ export function BooksProvider({ children }: { children: ReactNode }) {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    async function executeBookFetch(url: string) {
+    async function executeBookFetch(url: string, updateData = true) {
         setLoading(true);
         setError(null);
 
         try {
             const data = await fetchBooks(url);
-            setData(data);
+            if (updateData) setData(data);
             return data;
         } catch (e) {
             setError(e instanceof Error ? e.message : "Unknown error");
@@ -28,7 +28,7 @@ export function BooksProvider({ children }: { children: ReactNode }) {
         await executeBookFetch(`https://gutendex.com/books?topic=${category}`);
     }
     async function getBookById(id: number) {
-        return (await fetchBooks(`https://gutendex.com/books?ids=${id}`)).results[0];
+        return (await executeBookFetch(`https://gutendex.com/books?ids=${id}`, false))?.results[0];
     }
     async function searchBooks(query: string) {
         await executeBookFetch(`https://gutendex.com/books?search=${encodeURIComponent(query)}`);
@@ -44,7 +44,7 @@ export function BooksProvider({ children }: { children: ReactNode }) {
                 loading,
                 error,
                 fetchBooksByCategory,
-                getBookById: getBookById,
+                getBookById,
                 searchBooks,
                 loadPage,
             }}
