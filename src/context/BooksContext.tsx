@@ -9,8 +9,6 @@ export function BooksProvider({ children }: { children: ReactNode }) {
     const [data, setData] = useState<BooksResponse | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const [currentCategory, setCurrentCategory] = useState<string | null>(null);
-    const [currentSearch, setCurrentSearch] = useState<string | null>(null);
 
     async function executeBookFetch(url: string) {
         setLoading(true);
@@ -27,18 +25,12 @@ export function BooksProvider({ children }: { children: ReactNode }) {
         }
     }
     async function fetchBooksByCategory(category: string) {
-        setCurrentCategory(category);
-        setCurrentSearch(null);
-
         await executeBookFetch(`https://gutendex.com/books?topic=${category}`);
     }
     async function getBookById(id: number) {
         return (await fetchBooks(`https://gutendex.com/books?ids=${id}`)).results[0];
     }
     async function searchBooks(query: string) {
-        setCurrentCategory(null);
-        setCurrentSearch(query);
-
         await executeBookFetch(`https://gutendex.com/books?search=${encodeURIComponent(query)}`);
     }
     async function loadPage(url: string) {
@@ -51,8 +43,6 @@ export function BooksProvider({ children }: { children: ReactNode }) {
                 data,
                 loading,
                 error,
-                currentCategory,
-                currentSearch,
                 fetchBooksByCategory,
                 getBookById: getBookById,
                 searchBooks,

@@ -3,7 +3,7 @@ import BookEntry from "./BookEntry.tsx";
 import Pagination from "./Pagination.tsx";
 
 export default function BookList() {
-    const { data, loading, error, currentCategory } = useBooks();
+    const { data, loading, error } = useBooks();
 
     if (loading) {
         // TODO: add spinner
@@ -18,7 +18,6 @@ export default function BookList() {
 
     return (
         <>
-            <h2>{currentCategory}</h2>
             <ul>
                 {data.results.map(book => (
                     <li key={book.id}>

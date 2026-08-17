@@ -8,8 +8,15 @@ export default function SearchPage() {
     const { query } = useParams();
 
     useEffect(() => {
-        searchBooks(query!);
+        if (query) {
+            searchBooks(query);
+        }
     }, [query]);
 
-    return <BookList />;
+    return (
+        <>
+            <h1>Showing search results for "{query}"</h1>
+            <BookList />
+        </>
+    );
 }

@@ -5,8 +5,6 @@ export default interface BooksContextType {
     data: BooksResponse | null;
     loading: boolean;
     error: string | null;
-    currentCategory: string | null;
-    currentSearch: string | null;
     fetchBooksByCategory: (category: string) => Promise<void>;
     getBookById: (id: number) => Promise<Book | undefined>;
     searchBooks: (query: string) => Promise<void>;
