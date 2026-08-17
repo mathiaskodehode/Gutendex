@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import CategoryPage from "../pages/CategoryPage.tsx";
 import FavoritesPage from "../pages/FavoritesPage.tsx";
 import BookDetailsPage from "../pages/BookDetailsPage.tsx";
+import SearchPage from "../pages/SearchPage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
             {
                 path: "category/:category",
                 element: <CategoryPage />,
+            },
+            {
+                path: "search/:query",
+                element: <SearchPage />,
             },
             {
                 path: "favorites",

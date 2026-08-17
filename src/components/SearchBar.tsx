@@ -1,16 +1,15 @@
 import { useState } from "react";
-import { useBooks } from "../context/BooksContext";
+import { useNavigate } from "react-router";
 
 export default function SearchBar() {
     const [query, setQuery] = useState("");
-    const { searchBooks } = useBooks();
+    const navigate = useNavigate();
 
     function handleSubmit(e: React.SubmitEvent) {
         e.preventDefault();
 
-        if (!query.trim()) return;
-
-        searchBooks(query);
+        setQuery(query.trim());
+        navigate(`/search/${query}`);
     }
 
     return (
@@ -21,7 +20,6 @@ export default function SearchBar() {
                 value={query}
                 onChange={e => setQuery(e.target.value)}
             />
-
             <button type="submit">Search</button>
         </form>
     );
