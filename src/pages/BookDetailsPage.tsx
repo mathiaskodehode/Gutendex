@@ -25,6 +25,8 @@ export default function BookDetailsPage() {
         setBook(null);
         setLoading(true);
         setError(null);
+
+        // active prevents stale requests from updating the page after the effect is no longer active.
         let active = true;
         getBookById(id)
             .then(book => {
