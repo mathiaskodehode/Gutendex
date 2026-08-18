@@ -9,9 +9,12 @@ export default function Favorites() {
             {favorites.length === 0 ? (
                 <p>You have no favorite books yet.</p>
             ) : (
-                <ul>
+                <ul className="favorites-list">
                     {favorites.map(book => (
-                        <li key={book.id}>
+                        <li
+                            key={book.id}
+                            className="favorites-list-item"
+                        >
                             <BookEntry {...book} />
                         </li>
                     ))}

@@ -7,17 +7,22 @@ export default function SearchBar() {
 
     function handleSubmit(e: React.SubmitEvent) {
         e.preventDefault();
-        // TODO: handle empty search
-        navigate(`/search/${encodeURIComponent(query.trim())}`);
+        const trimmedQuery = query.trim();
+        if (!trimmedQuery) return;
+        navigate(`/search/${encodeURIComponent(trimmedQuery)}`);
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form
+            className="search-form"
+            onSubmit={handleSubmit}
+        >
             <input
                 type="search"
                 placeholder="Search books..."
                 value={query}
                 onChange={e => setQuery(e.target.value)}
+                aria-label="Search books"
             />
             <button type="submit">Search</button>
         </form>

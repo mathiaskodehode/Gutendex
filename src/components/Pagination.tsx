@@ -15,14 +15,16 @@ export default function Pagination() {
     };
 
     return (
-        <div>
+        <div className="pagination">
             <button
                 disabled={!data.previous}
                 onClick={() => data.previous && loadPage(data.previous)}
             >
                 Previous
             </button>
-            Page {getPage()}
+
+            <span>Page {getPage()}</span>
+
             <button
                 disabled={!data.next}
                 onClick={() => data.next && loadPage(data.next)}

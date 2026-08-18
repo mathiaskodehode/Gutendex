@@ -5,9 +5,12 @@ export default function FavoriteButton(book: Book) {
     const { addFavorite, removeFavorite, isFavorite } = useFavorites();
     const favorite = isFavorite(book.id);
 
-    return favorite ? (
-        <button onClick={() => removeFavorite(book.id)}>Remove</button>
-    ) : (
-        <button onClick={() => addFavorite(book)}>Favorite</button>
+    return (
+        <button
+            className={`favorite-button ${favorite ? "is-favorite" : ""}`}
+            onClick={() => (favorite ? removeFavorite(book.id) : addFavorite(book))}
+        >
+            {favorite ? "Remove favorite" : "Favorite"}
+        </button>
     );
 }

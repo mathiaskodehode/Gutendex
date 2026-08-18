@@ -50,47 +50,72 @@ export default function BookDetailsPage() {
     const digitalBookUrl = book.formats["text/html"] ?? book.formats["text/plain"];
 
     return (
-        <div>
-            <h2>{book.title}</h2>
-            <FavoriteButton {...book} />
-            {coverImage && (
-                <img
-                    src={coverImage}
-                    alt={`Cover of ${book.title}`}
-                />
-            )}
-            <h3>Authors</h3>
-            {book.authors.length > 0 ? book.authors.map(author => <p key={author.name}>{author.name}</p>) : <p>Unknown</p>}
-            <h3>Download count</h3>
-            <p>{book.download_count}</p>
-            <h3>Category</h3>
-            {book.subjects.length > 0 ? book.subjects.map(subject => <p key={subject}>{subject}</p>) : <p>Unknown</p>}
-            <h3>Languages</h3>
-            <p>{book.languages.length > 0 ? book.languages.join(", ") : "Unknown"}</p>
-            {digitalBookUrl && (
-                <>
-                    <h3>Digital book</h3>
+        <article className="book-details">
+            <div className="book-details-cover">
+                {coverImage && (
+                    <img
+                        src={coverImage}
+                        alt={`Cover of ${book.title}`}
+                    />
+                )}
+            </div>
+
+            <div className="book-details-content">
+                <div className="book-details-header">
+                    <div>
+                        <h1>{book.title}</h1>
+
+                        <p className="book-details-authors">
+                            {book.authors.length > 0 ? book.authors.map(author => author.name).join(", ") : "Unknown author"}
+                        </p>
+                    </div>
+
+                    <FavoriteButton {...book} />
+                </div>
+
+                <section className="book-section">
+                    <h2>Summary</h2>
+
+                    {book.summaries.length > 0 ? (
+                        book.summaries.map((summary, index) => <p key={index}>{summary}</p>)
+                    ) : (
+                        <p>None</p>
+                    )}
+                </section>
+
+                <section className="book-meta">
+                    <div>
+                        <h2>Download count</h2>
+                        <p>{book.download_count}</p>
+                    </div>
+
+                    <div>
+                        <h2>Languages</h2>
+                        <p>{book.languages.length > 0 ? book.languages.join(", ") : "Unknown"}</p>
+                    </div>
+
+                    <div>
+                        <h2>Subjects</h2>
+                        <p>{book.subjects.length > 0 ? book.subjects.join(", ") : "Unknown"}</p>
+                    </div>
+
+                    <div>
+                        <h2>Bookshelves</h2>
+                        <p>{book.bookshelves.length > 0 ? book.bookshelves.join(", ") : "None"}</p>
+                    </div>
+                </section>
+
+                {digitalBookUrl && (
                     <a
+                        className="read-book-button"
                         href={digitalBookUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
                         Read book
                     </a>
-                </>
-            )}
-            <h3>Bookshelves</h3>
-            {book.bookshelves.length > 0 ? book.bookshelves.map(bookshelf => <p key={bookshelf}>{bookshelf}</p>) : <p>None</p>}
-            <h3>Editors</h3>
-            {book.editors.length > 0 ? book.editors.map(editor => <p key={editor.name}>{editor.name}</p>) : <p>None</p>}
-            <h3>Summaries</h3>
-            {book.summaries.length > 0 ? book.summaries.map((summary, index) => <p key={index}>{summary}</p>) : <p>None</p>}
-            <h3>Translators</h3>
-            {book.translators.length > 0 ? (
-                book.translators.map(translator => <p key={translator.name}>{translator.name}</p>)
-            ) : (
-                <p>None</p>
-            )}
-        </div>
+                )}
+            </div>
+        </article>
     );
 }
