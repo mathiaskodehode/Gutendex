@@ -4,5 +4,4 @@ REPO_ROOT="$(git rev-parse --show-toplevel)"
 
 echo "RUNNING POST MERGE"
 
-npm --prefix "$REPO_ROOT" i
-npm --prefix "$REPO_ROOT/frontend" i
+npm --prefix "$REPO_ROOT" ci --ignore-scripts
