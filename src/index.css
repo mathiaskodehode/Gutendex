@@ -76,6 +76,91 @@ a:hover {
     letter-spacing: -0.03em;
 }
 
+/* HOME */
+
+.home-page {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.home-hero {
+    min-height: min(520px, 60vh);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 4rem 0 3rem;
+}
+
+.home-hero-content {
+    width: min(820px, 100%);
+    margin: 0 auto;
+}
+
+.home-section-label {
+    margin: 0 0 0.9rem;
+
+    color: #777;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+}
+
+.home-hero-title {
+    margin: 0;
+
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.06em;
+}
+
+.home-search {
+    width: min(680px, 100%);
+    margin: 2rem auto 0;
+}
+
+.home-search .search-form {
+    gap: 0.65rem;
+}
+
+.home-search .search-form input {
+    padding: 0.9rem 1rem;
+    border-radius: 7px;
+    font-size: 1rem;
+}
+
+.home-search .search-form button {
+    padding-inline: 1.2rem;
+}
+
+.home-search > p {
+    margin: 0.75rem 0 0;
+
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.home-about h2 {
+    margin: 0;
+
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.03em;
+}
+
+.home-about {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 3rem 0 1rem;
+    text-align: center;
+}
+
+.home-about p:last-child {
+    margin: 1rem auto 0;
+
+    color: #999;
+    line-height: 1.7;
+}
+
 /* HEADER */
 
 .site-header {
@@ -538,6 +623,19 @@ a:hover {
 /* MOBILE */
 
 @media (max-width: 700px) {
+    .home-page {
+        gap: 3.5rem;
+    }
+
+    .home-hero {
+        min-height: auto;
+        padding: 2.5rem 0 1rem;
+    }
+
+    .home-hero-title {
+        font-size: clamp(2.7rem, 14vw, 4.5rem);
+    }
+
     .main-content {
         padding-top: 1.5rem;
     }
