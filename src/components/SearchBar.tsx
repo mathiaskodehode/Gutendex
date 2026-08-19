@@ -19,10 +19,9 @@ export default function SearchBar() {
         >
             <input
                 type="search"
-                placeholder="Search books..."
+                placeholder="Search for books"
                 value={query}
                 onChange={e => setQuery(e.target.value)}
-                aria-label="Search books"
             />
             <button type="submit">Search</button>
         </form>
