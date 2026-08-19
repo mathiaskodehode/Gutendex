@@ -44,7 +44,7 @@ export default function BookDetailsPage() {
         };
     }, [bookid]);
 
-    if (loading) return <LoadingSpinner text="Loading books..." />;
+    if (loading) return <LoadingSpinner text="Loading book..." />;
     if (error) return <p>Error: {error}</p>;
     if (!book) return <p>Book not found.</p>;
     const coverImage = book.formats["image/jpeg"];
