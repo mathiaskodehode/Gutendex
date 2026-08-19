@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import { useBooks } from "../context/BooksContext.tsx";
 import FavoriteButton from "../components/FavoriteButton.tsx";
 import type Book from "../types/book.ts";
+import LoadingSpinner from "../components/LoadingSpinner.tsx";
 
 export default function BookDetailsPage() {
     const { bookid } = useParams();
@@ -43,7 +44,7 @@ export default function BookDetailsPage() {
         };
     }, [bookid]);
 
-    if (loading) return <p>Loading book...</p>;
+    if (loading) return <LoadingSpinner text="Loading books..." />;
     if (error) return <p>Error: {error}</p>;
     if (!book) return <p>Book not found.</p>;
     const coverImage = book.formats["image/jpeg"];
