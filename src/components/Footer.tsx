@@ -3,7 +3,7 @@ export default function Footer() {
         <footer className="site-footer">
             <div className="footer-container">
                 <span>Gutendex</span>
-                <span>Book catalogue</span>
+                <span>Powered by the Gutendex API</span>
             </div>
         </footer>
     );
