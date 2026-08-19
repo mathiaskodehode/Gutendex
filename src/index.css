@@ -121,6 +121,10 @@ a:hover {
     gap: 0.65rem;
 }
 
+.home-search .search-form input::placeholder {
+    font-size: medium;
+}
+
 .home-search .search-form input {
     padding: 0.9rem 1rem;
     border-radius: 7px;
@@ -250,6 +254,7 @@ a:hover {
 
 .search-form input::placeholder {
     color: #777;
+    font-size: small;
 }
 
 .search-form input:focus {
