@@ -4,5 +4,6 @@
     "arrowParens": "avoid",
     "proseWrap": "never",
     "singleAttributePerLine": true,
-    "bracketSpacing": true
+    "bracketSpacing": true,
+    "endOfLine": "crlf"
 }
