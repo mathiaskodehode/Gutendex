@@ -14,12 +14,6 @@ export default function Header() {
                 </Link>
                 <SearchBar />
                 <nav className="main-navigation">
-                    <Link
-                        to="/favorites"
-                        className="favorites-link"
-                    >
-                        Favorites
-                    </Link>
                     <CategoryMenu />
                 </nav>
             </div>

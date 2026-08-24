@@ -6,7 +6,6 @@ export default function MainLayout() {
     return (
         <div className="app">
             <Header />
-
             <main className="main-content">
                 <div className="content-container">
                     <Outlet />
