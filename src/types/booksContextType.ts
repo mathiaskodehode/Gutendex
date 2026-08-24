@@ -8,5 +8,4 @@ export default interface BooksContextType {
     fetchBooksByCategory: (category: string, page: number) => Promise<void>;
     getBookById: (id: number) => Promise<Book | undefined>;
     searchBooks: (query: string, page: number) => Promise<void>;
-    loadPage: (url: string) => Promise<void>;
 }

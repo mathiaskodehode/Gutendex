@@ -97,7 +97,6 @@ export function BooksProvider({ children }: { children: ReactNode }) {
                 fetchBooksByCategory,
                 getBookById,
                 searchBooks,
-                loadPage,
             }}
         >
             {children}
