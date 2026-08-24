@@ -1,68 +1,89 @@
-import { createContext, useContext, useState, useRef, type ReactNode } from "react";
+import { createContext, useContext, useRef, useState, type ReactNode } from "react";
 import type BooksResponse from "../types/booksResponse.ts";
 import type BooksContextType from "../types/booksContextType.ts";
+import type Book from "../types/book.ts";
 import { fetchBooks } from "../api/gutendex.ts";
 
 const BooksContext = createContext<BooksContextType | undefined>(undefined);
 
 export function BooksProvider({ children }: { children: ReactNode }) {
     const [data, setData] = useState<BooksResponse | null>(null);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const clientCache = useRef<Record<string, BooksResponse>>({});
-    const abortControllerRef = useRef<AbortController | null>(null);
+    const responseCache = useRef<Record<string, BooksResponse>>({});
+    const bookCache = useRef<Record<number, Book>>({});
+    const inFlightRequests = useRef<Record<string, Promise<BooksResponse>>>({});
+    const latestRequestId = useRef(0);
 
-    async function executeBookFetch(url: string, updateData = true) {
-        if (clientCache.current[url]) {
-            const cachedData = clientCache.current[url];
-            if (updateData) setData(cachedData);
-            return cachedData;
-        }
-        if (updateData && abortControllerRef.current) {
-            abortControllerRef.current.abort();
-            console.log("aborted old unfinished fetching");
-        }
-        const controller = new AbortController();
-        if (updateData) {
-            abortControllerRef.current = controller;
+    async function fetchAndCache(url: string): Promise<BooksResponse> {
+        const cachedResponse = responseCache.current[url];
+        if (cachedResponse) return cachedResponse;
+        const existingRequest = inFlightRequests.current[url];
+        if (existingRequest) return existingRequest;
+        const request = fetchBooks(url)
+            .then(response => {
+                responseCache.current[url] = response;
+                for (const book of response.results) {
+                    bookCache.current[book.id] = book;
+                }
+
+                return response;
+            })
+            .finally(() => {
+                delete inFlightRequests.current[url];
+            });
+        inFlightRequests.current[url] = request;
+        return request;
+    }
+
+    async function fetchBookList(url: string) {
+        const requestId = ++latestRequestId.current;
+        const cachedResponse = responseCache.current[url];
+
+        if (cachedResponse) {
+            setData(cachedResponse);
+            setError(null);
+            setLoading(false);
+            return cachedResponse;
         }
 
         setLoading(true);
         setError(null);
 
         try {
-            const fetchedData = await fetchBooks(url, { signal: controller.signal });
-            clientCache.current[url] = fetchedData;
-            if (updateData) setData(fetchedData);
-            return fetchedData;
-        } catch (e) {
-            if (e instanceof Error && e.name === "AbortError") {
-                return null;
-            }
-            setError(e instanceof Error ? e.message : "Unknown error");
-            throw e;
-        } finally {
-            if (!updateData || abortControllerRef.current === controller) {
+            const response = await fetchAndCache(url);
+            if (requestId === latestRequestId.current) {
+                setData(response);
                 setLoading(false);
             }
+            return response;
+        } catch (e) {
+            if (requestId === latestRequestId.current) {
+                setError(e instanceof Error ? e.message : "Unknown error");
+                setLoading(false);
+            }
+            throw e;
         }
     }
 
     async function fetchBooksByCategory(category: string) {
-        await executeBookFetch(`https://gutendex.com/books?topic=${category}`);
-    }
-
-    async function getBookById(id: number) {
-        return (await executeBookFetch(`https://gutendex.com/books?ids=${id}`, false))?.results[0];
+        await fetchBookList(`https://gutendex.com/books?topic=${encodeURIComponent(category)}`);
     }
 
     async function searchBooks(query: string) {
-        await executeBookFetch(`https://gutendex.com/books?search=${encodeURIComponent(query)}`);
+        await fetchBookList(`https://gutendex.com/books?search=${encodeURIComponent(query)}`);
     }
 
     async function loadPage(url: string) {
-        await executeBookFetch(url);
+        await fetchBookList(url);
+    }
+
+    async function getBookById(id: number): Promise<Book | undefined> {
+        const cachedBook = bookCache.current[id];
+        if (cachedBook) return cachedBook;
+        const response = await fetchAndCache(`https://gutendex.com/books?ids=${id}`);
+        return response.results[0];
     }
 
     return (
