@@ -13,7 +13,7 @@ export default function CategoryMenu() {
 
             {categories.map(category => (
                 <Link
-                    to={`/category/${category}`}
+                    to={`/category/${category}?page=1`}
                     key={category}
                     className="category-link"
                 >

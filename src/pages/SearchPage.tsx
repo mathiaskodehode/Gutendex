@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import BookList from "../components/BookList.tsx";
 import { useBooks } from "../context/BooksContext.tsx";
 import { useEffect } from "react";
@@ -6,12 +6,12 @@ import { useEffect } from "react";
 export default function SearchPage() {
     const { searchBooks } = useBooks();
     const { query } = useParams();
+    const [searchParams] = useSearchParams();
 
+    const page: number = Number(searchParams.get("page")) || 1;
     useEffect(() => {
-        if (query) {
-            searchBooks(query);
-        }
-    }, [query]);
+        if (query) searchBooks(query, page);
+    }, [query, page]);
 
     return (
         <>

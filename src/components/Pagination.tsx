@@ -1,33 +1,31 @@
+import { useLocation, useNavigate, useSearchParams } from "react-router";
 import { useBooks } from "../context/BooksContext";
 
 export default function Pagination() {
-    const { data, loadPage } = useBooks();
+    const { data } = useBooks();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [searchParams] = useSearchParams();
 
     if (!data) return null;
 
-    const getPage = () => {
-        if (!data.previous) return 1;
-
-        const previousUrl = new URL(data.previous);
-        const previousPage = Number(previousUrl.searchParams.get("page") ?? "1");
-
-        return previousPage + 1;
+    const currentPage = Number(searchParams.get("page")) || 1;
+    const goToPage = (page: number) => {
+        navigate(`${location.pathname}?page=${page}`);
     };
 
     return (
         <div className="pagination">
             <button
                 disabled={!data.previous}
-                onClick={() => data.previous && loadPage(data.previous)}
+                onClick={() => goToPage(currentPage - 1)}
             >
                 Previous
             </button>
-
-            <span>Page {getPage()}</span>
-
+            <span>Page {currentPage}</span>
             <button
                 disabled={!data.next}
-                onClick={() => data.next && loadPage(data.next)}
+                onClick={() => goToPage(currentPage + 1)}
             >
                 Next
             </button>

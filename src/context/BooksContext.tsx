@@ -67,12 +67,14 @@ export function BooksProvider({ children }: { children: ReactNode }) {
         }
     }
 
-    async function fetchBooksByCategory(category: string) {
-        await fetchBookList(`https://gutendex.com/books?topic=${encodeURIComponent(category)}`);
+    async function fetchBooksByCategory(category: string, page: number = 1) {
+        const url = `https://gutendex.com/books?topic=${encodeURIComponent(category)}` + `&page=${page}`;
+        await fetchBookList(url);
     }
 
-    async function searchBooks(query: string) {
-        await fetchBookList(`https://gutendex.com/books?search=${encodeURIComponent(query)}`);
+    async function searchBooks(query: string, page: number = 1) {
+        const url = `https://gutendex.com/books?search=${encodeURIComponent(query)}` + `&page=${page}`;
+        await fetchBookList(url);
     }
 
     async function loadPage(url: string) {
