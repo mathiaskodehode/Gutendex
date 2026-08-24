@@ -29,9 +29,7 @@ export default function BookEntry(book: Book) {
                 >
                     {book.title}
                 </Link>
-                <p className="book-author">
-                    {book.authors.length > 0 ? book.authors.map(author => author.name).join(", ") : "Unknown author"}
-                </p>
+                <p className="book-author">{book.authors.length > 0 ? book.authors.map(author => author.name).join(", ") : "Unknown author"}</p>
 
                 <FavoriteButton {...book} />
             </div>

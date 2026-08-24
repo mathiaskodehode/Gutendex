@@ -77,11 +77,7 @@ export default function BookDetailsPage() {
                 <section className="book-section">
                     <h2>Summary</h2>
 
-                    {book.summaries.length > 0 ? (
-                        book.summaries.map((summary, index) => <p key={index}>{summary}</p>)
-                    ) : (
-                        <p>None</p>
-                    )}
+                    {book.summaries.length > 0 ? book.summaries.map((summary, index) => <p key={index}>{summary}</p>) : <p>None</p>}
                 </section>
 
                 <section className="book-meta">
