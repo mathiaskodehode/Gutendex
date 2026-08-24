@@ -1,6 +1,6 @@
 {
     "tabWidth": 4,
-    "printWidth": 128,
+    "printWidth": 190,
     "arrowParens": "avoid",
     "proseWrap": "never",
     "singleAttributePerLine": true,
