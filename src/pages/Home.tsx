@@ -8,7 +8,7 @@ export default function Home() {
                     <h1 className="home-hero-title">GUTENDEX</h1>
                     <div className="home-search">
                         <SearchBar />
-                        <p>Try a title or author, such as "Frankenstein", "Jane Austen", or "Mark Twain".</p>
+                        <p>Try a title or author.</p>
                     </div>
                 </div>
             </section>
