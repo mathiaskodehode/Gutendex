@@ -15,12 +15,10 @@ export default function Home() {
 
             <section className="home-about">
                 <p className="home-section-label">ABOUT</p>
-                <h2>Lorem ipsum</h2>
+                <h2>Discover books from Project Gutenberg</h2>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                    voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    Browse thousands of freely available books through the Gutendex API. Search for a specific title, explore categories, or save your favorites
+                    for later.
                 </p>
             </section>
         </div>
